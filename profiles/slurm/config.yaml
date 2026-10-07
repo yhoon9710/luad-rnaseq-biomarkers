@@ -1,0 +1,13 @@
+# Snakemake >= 8 SLURM profile (needs snakemake-executor-plugin-slurm)
+# Usage: snakemake --profile profiles/slurm
+# Edit slurm_partition / slurm_account for your cluster.
+executor: slurm
+jobs: 20
+latency-wait: 60
+printshellcmds: true
+default-resources:
+  slurm_partition: "standard"
+  # slurm_account: "your_lab_account"
+  mem_mb: 8000
+  runtime: 60      # minutes
+  cpus_per_task: 4

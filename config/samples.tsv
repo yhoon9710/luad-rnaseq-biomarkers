@@ -1,0 +1,7 @@
+sample	condition	patient	srr
+# Fill in from a public LUAD tumor/normal RNA-seq study, e.g. GEO GSE40419 (paired-end Illumina).
+# Use NCBI SRA Run Selector to pick 2-3 patients with BOTH a tumor and a normal run, then delete these comment lines.
+P1_T	Tumor	P1	SRR_FILL_ME
+P1_N	Normal	P1	SRR_FILL_ME
+P2_T	Tumor	P2	SRR_FILL_ME
+P2_N	Normal	P2	SRR_FILL_ME

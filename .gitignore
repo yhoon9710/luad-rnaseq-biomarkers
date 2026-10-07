@@ -1,0 +1,12 @@
+data/
+resources/
+logs/
+.snakemake/
+results/trimmed/
+results/salmon/
+results/*.rds
+results/luad.sqlite
+*.fastq*
+.Rhistory
+.DS_Store
+__pycache__/

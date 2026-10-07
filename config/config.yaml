@@ -1,0 +1,6 @@
+samples: config/samples.tsv
+
+# GENCODE human transcriptome, e.g.
+# https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_46/gencode.v46.transcripts.fa.gz
+# Keep the full pipe-delimited headers (do NOT use --gencode); 01_tximport.R parses them.
+transcriptome: resources/gencode.transcripts.fa.gz

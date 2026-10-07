@@ -1,0 +1,31 @@
+name: luad-rnaseq
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11
+  - snakemake-minimal>=8
+  - snakemake-executor-plugin-slurm
+  - pandas
+  - sra-tools
+  - seqtk
+  - fastqc
+  - fastp
+  - salmon
+  - multiqc
+  # R side (alternatively install these from inside R with BiocManager)
+  - r-base=4.3
+  - bioconductor-tximport
+  - bioconductor-deseq2
+  - bioconductor-apeglm
+  - bioconductor-tcgabiolinks
+  - bioconductor-fgsea
+  - r-msigdbr
+  - r-tidyverse
+  - r-pheatmap
+  - r-ggrepel
+  - r-survival
+  - r-survminer
+  - r-shiny
+  - r-dbi
+  - r-rsqlite
