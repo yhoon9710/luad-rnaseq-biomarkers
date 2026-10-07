@@ -55,7 +55,7 @@ server <- function(input, output, session) {
   output$volcano <- renderPlot({
     d <- de()
     d$sig <- d$padj < input$fdr & abs(d$log2FC) > input$lfc
-    ggplot(d, aes(log2FC, -log10(padj), color = sig)) +
+    ggplot(d, aes(log2FC, -log10(pmax(padj, 1e-300)), color = sig)) +
       geom_point(size = .6, alpha = .6) +
       scale_color_manual(values = c(`FALSE` = "grey70", `TRUE` = "#c0392b"), guide = "none") +
       geom_point(data = subset(d, gene_name == input$gene), color = "black", size = 3) +

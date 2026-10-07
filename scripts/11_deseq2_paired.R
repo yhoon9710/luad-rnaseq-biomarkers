@@ -83,7 +83,7 @@ p <- de %>% filter(!is.na(padj)) %>%
   mutate(class = case_when(padj < .05 & log2FC > 1 ~ "Up in tumor",
                            padj < .05 & log2FC < -1 ~ "Down in tumor",
                            TRUE ~ "NS")) %>%
-  ggplot(aes(log2FC, -log10(padj), color = class)) +
+  ggplot(aes(log2FC, -log10(pmax(padj, 1e-300)), color = class)) +
   geom_point(size = .6, alpha = .6) +
   geom_text_repel(data = lab, aes(label = gene_name), color = "black",
                   size = 3, max.overlaps = 30) +
