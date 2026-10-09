@@ -16,20 +16,14 @@ cd <- as.data.frame(colData(se)) %>%
   filter(sample_type == "Primary Tumor") %>%
   arrange(barcode) %>% distinct(patient, .keep_all = TRUE)
 
+# survival data from the GDC patient table (run 05_get_clinical.R first)
+clin_all <- read_tsv("data/clinical_luad.tsv", show_col_types = FALSE)
 clin <- cd %>%
-  transmute(barcode, patient,
-            event = as.integer(vital_status == "Dead"),
-            time  = as.numeric(ifelse(vital_status == "Dead",
-                                      days_to_death, days_to_last_follow_up)) / 30.44,
-            age   = as.numeric(age_at_index),
-            # order matters: "Stage I" is a prefix of II/III/IV
-            stage = case_when(str_detect(ajcc_pathologic_stage, "Stage IV")  ~ "IV",
-                              str_detect(ajcc_pathologic_stage, "Stage III") ~ "III",
-                              str_detect(ajcc_pathologic_stage, "Stage II")  ~ "II",
-                              str_detect(ajcc_pathologic_stage, "Stage I")   ~ "I",
-                              TRUE ~ NA_character_)) %>%
-  filter(!is.na(time), time > 0, !is.na(event))
-message("Tumors with survival data: ", nrow(clin), " | deaths: ", sum(clin$event))
+  select(barcode, patient) %>%
+  inner_join(clin_all %>% select(patient, event, time = time_months, age, stage),
+             by = "patient")
+message("Tumors with survival data: ", nrow(clin), " | deaths: ", sum(clin$event),
+        " | alive (censored): ", sum(clin$event == 0))
 
 # variance-stabilized expression of tumors
 se_t <- se[rowData(se)$gene_type == "protein_coding", clin$barcode]
