@@ -28,7 +28,7 @@ message("Tumors with survival data: ", nrow(clin), " | deaths: ", sum(clin$event
 # variance-stabilized expression of tumors
 se_t <- se[rowData(se)$gene_type == "protein_coding", clin$barcode]
 dds  <- DESeqDataSetFromMatrix(assay(se_t, "unstranded"),
-                               data.frame(row.names = clin$barcode, x = 1), ~ 1)
+                               data.frame(row.names = clin$barcode, x = rep(1, nrow(clin))), ~ 1)
 vsd  <- vst(dds, blind = TRUE)
 gid  <- sub("\\..*$", "", rownames(vsd))
 
